@@ -61,7 +61,7 @@ void FireworkParticleSystem::render(void)
 		if(particles_[i].lifetime_ > 0)
 		{
 			// render the particle in its specific size
-			renderTarget_ -> SetRenderState(D3DRS_POINTSIZE, FtoDW(particles_[i].size_));
+			renderTarget_ -> SetRenderState(D3DRS_POINTSIZE, FtoDW(static_cast<float>(random_number(0, 100)) * 0.01f * particles_[i].size_));
 			renderTarget_ -> DrawPrimitive(D3DPT_POINTLIST, i, 1);
 		}
 	}
