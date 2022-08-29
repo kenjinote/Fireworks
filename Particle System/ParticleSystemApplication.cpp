@@ -4,6 +4,7 @@ In this file, DirectX is set up and the different rockets/particle systems are c
 */
 
 #include <Windows.h>			// Windows library (for window functions, menus, dialog boxes, etc)
+#include <dwmapi.h>
 #include "ParticleSystem.h"
 #include "Rocket.h"
 #include "Helpers.h"
@@ -238,11 +239,17 @@ LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int)
 {
 	// Register the window class
-	WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, MsgProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, "PSystem", NULL };
+	WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, MsgProc, 0L, 0L, GetModuleHandle(NULL), NULL, LoadCursor(0, IDC_ARROW), NULL, NULL, "PSystem", NULL };
 	RegisterClassEx(&wc);
 
 	// Create the application's window
 	HWND hWnd = CreateWindow("PSystem", "Fireworks", WS_OVERLAPPEDWINDOW, 0, 0, 800, 600, GetDesktopWindow(), NULL, wc.hInstance, NULL);
+
+	// change caption color for windows 11
+	COLORREF bkColor = RGB(0, 0, 0);
+	DwmSetWindowAttribute(
+		hWnd, 35/*DWMWINDOWATTRIBUTE::DWMWA_CAPTION_COLOR*/,
+		&bkColor, sizeof(COLORREF));
 
 	// seed the random number generator
 	seedRandomNumberGenerator();

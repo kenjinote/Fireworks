@@ -111,13 +111,13 @@ private:
 		float particleLaunchVelocity = getRandomVelocity();
 		
 		// Calculate start velocity for the particle using the previously calculated angles
-		p->velocity_.x = particleLaunchVelocity * (float)sin(D3DXToRadian(launchAngle)) * (float)cos(directionAngle);
-		p->velocity_.y = particleLaunchVelocity * (float)cos(D3DXToRadian(launchAngle));
-		p->velocity_.z = particleLaunchVelocity * (float)sin(D3DXToRadian(launchAngle)) * (float)sin(directionAngle);
+		p->velocity_.x = (float)(particleLaunchVelocity * sin(D3DXToRadian(launchAngle)) * cos(directionAngle));
+		p->velocity_.y = (float)(particleLaunchVelocity * cos(D3DXToRadian(launchAngle)));
+		p->velocity_.z = (float)(particleLaunchVelocity * sin(D3DXToRadian(launchAngle)) * sin(directionAngle));
 
 		// Rotate the shape according to the launch angle
-		p->velocity_.x = (p->velocity_.x*cos(D3DXToRadian(launchAngle))) - (p->velocity_.y*sin(D3DXToRadian(launchAngle)));
-        p->velocity_.y = (p->velocity_.x*sin(D3DXToRadian(launchAngle))) + (p->velocity_.y*cos(D3DXToRadian(launchAngle))); 
+		p->velocity_.x = (float)((p->velocity_.x*cos(D3DXToRadian(launchAngle))) - (p->velocity_.y*sin(D3DXToRadian(launchAngle))));
+        p->velocity_.y = (float)((p->velocity_.x*sin(D3DXToRadian(launchAngle))) + (p->velocity_.y*cos(D3DXToRadian(launchAngle))));
 
 		// Calculate start acceleration
 		p -> acceleration_.x = AIR_DRAG * p -> velocity_.x;
